@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const router = express.Router();
 require("dotenv").config();
 var cors = require("cors");
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const CourseRouter = require("./src/Routes/course");
+
 // // Connect with database
 mongoose
   .connect(
@@ -22,6 +24,7 @@ mongoose
   });
 // // Middleware
 app.use(express.json());
+app.use(morgan("dev"));
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -30,9 +33,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/", (req, res) => {
-  res.send({ name: "hi" });
-});
+app.use("/", CourseRouter);
 
 // Router Handler
 
@@ -41,7 +42,6 @@ app.use((req, res, next) => {
   next("Request URL not found!");
 });
 app.use((error, req, res, next) => {
-  console.log(error);
   if (error) {
     res.status(500).send(error);
   } else {

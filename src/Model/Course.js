@@ -6,6 +6,10 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+    },
     money: {
       type: Number,
       required: true,
@@ -29,15 +33,23 @@ const courseSchema = new mongoose.Schema(
     mentorName: {
       type: String,
       required: false,
-    },
-    slug: {
+    },    
+    enroll_form: {
       type: String,
       required: true,
     },
-    Enroll_form: {
-      type: String,
-      required: true,
-    },
+    module_details:[
+      {
+        title: {
+          type:String,
+          required: true,
+        },
+        detail:{
+          type:String,
+          required: true,
+        },
+      }
+    ]
   },
   { timestamps: true }
 );

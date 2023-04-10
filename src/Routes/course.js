@@ -1,9 +1,15 @@
 const express = require("express");
-const Course = require("../Model/course");
 
-const route = express.Route();
-route.post("/courses",async(req,res) => {
-    Course
+const { addCourse, getCourse, deleteCourse } = require("../Controller/Course");
 
-})
-module.exports = route;
+const router = express.Router();
+
+
+//Router
+router.post("/courses", addCourse)
+router.get("/courses", getCourse)
+router.delete("/courses/:id", deleteCourse)
+
+
+
+module.exports = router;
