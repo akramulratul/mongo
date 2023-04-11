@@ -17,6 +17,20 @@ exports.getCourse = async(req,res)=>{
         
     }
 }
+
+exports.getCourseById = async(req,res)=>{
+    const {slug} = req.params
+    try {
+        const course = await Course.find({slug: slug})
+        if(course){
+            res.status(200).json({course})
+        }else{
+            res.status(400).json({message:"Not found"})
+        }
+    } catch (error) {
+        
+    }
+}
 exports.deleteCourse = async (req,res)=>{
     const {id} = req.params
     try {
