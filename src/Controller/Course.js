@@ -1,6 +1,9 @@
 const slugify = require("slugify");
 const Course = require("../Model/course");
 
+
+
+
 exports.addCourse = async (req, res) => {
     console.log(req.body)
     const course= await new Course({...req.body, slug: slugify(req.body.title), module_details: req.body.module})
