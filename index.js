@@ -7,15 +7,16 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const CourseRouter = require("./src/Routes/course");
 
+// //
+const PORT = process.env.PORT || 5000;
 // // Connect with database
+const DB =
+  "mongodb+srv://akramulratul:dfBR3CpVGVcV8mDQ@cluster0.kmszq3s.mongodb.net/basiceducation?retryWrites=true&w=majority";
 mongoose
-  .connect(
-    `mongodb+srv://akramulratul:dfBR3CpVGVcV8mDQ@cluster0.kmszq3s.mongodb.net/basiceducation?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Database connected");
   })
@@ -48,6 +49,6 @@ app.use((error, req, res, next) => {
     res.status(500).send("There was an Error!");
   }
 });
-app.listen(5000, () => {
-  console.log(`Example app listening on port ${5000}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
