@@ -6,6 +6,7 @@ var cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const CourseRouter = require("./src/Routes/course");
+const path = require("path");
 
 // //
 const PORT = process.env.PORT || 5000;
@@ -33,18 +34,19 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cors());
+app.use("/public", express.static(path.join(__dirname, "src/uploads")));
 
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "API is okay if you want to check",
     routes: {
-      courses: "/courses",
+      courses: "/api/courses",
     },
   });
 });
 
 // Router Handler
-app.use("/", CourseRouter);
+app.use("/api", CourseRouter);
 // //404 Handler
 app.use((req, res, next) => {
   next("Request URL not found!");
