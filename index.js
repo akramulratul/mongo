@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const path = require("path");
+const router = express.Router();
 require("dotenv").config();
 var cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const CourseRouter = require("./src/Routes/course");
-const path = require("path");
 
 // //
 const PORT = process.env.PORT || 5000;
@@ -26,13 +27,13 @@ mongoose
   });
 // // Middleware
 app.use(express.json());
-app.use(morgan("dev"));
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
 app.use(bodyParser.json());
+app.use(morgan("dev"));
 app.use(cors());
 app.use("/public", express.static(path.join(__dirname, "src/uploads")));
 
@@ -40,13 +41,13 @@ app.get("/", (req, res) => {
   res.status(200).json({
     message: "API is okay if you want to check",
     routes: {
-      courses: "/api/courses",
+      courses: "api/courses",
     },
   });
 });
-
-// Router Handler
 app.use("/api", CourseRouter);
+// Router Handler
+
 // //404 Handler
 app.use((req, res, next) => {
   next("Request URL not found!");
