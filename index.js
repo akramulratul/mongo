@@ -34,10 +34,17 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/", CourseRouter);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "API is okay if you want to check",
+    routes: {
+      courses: "/courses",
+    },
+  });
+});
 
 // Router Handler
-
+app.use("/", CourseRouter);
 // //404 Handler
 app.use((req, res, next) => {
   next("Request URL not found!");
