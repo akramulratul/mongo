@@ -35,7 +35,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cors());
-app.use("/public", express.static(path.join(__dirname, "src/uploads")));
+// app.use("/public", express.static(path.join(__dirname, "src/uploads")));
 
 app.get("/", (req, res) => {
   res.status(200).json({
